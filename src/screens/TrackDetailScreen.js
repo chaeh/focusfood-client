@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Context as TrackContext } from "../context/TrackContext";
-import MapView, { Polyline } from "react-native-maps";
+//import MapView, { Polyline } from "react-native-maps";
 
 const TrackDetailScreen = ({ navigation }) => {
   const _id = navigation.getParam("_id");
@@ -13,7 +13,7 @@ const TrackDetailScreen = ({ navigation }) => {
   return (
     <>
       <Text>{track.name}</Text>
-      <MapView
+      {/* <MapView
         initialRegion={{
           longitudeDelta: 0.01,
           latitudeDelta: 0.01,
@@ -22,7 +22,7 @@ const TrackDetailScreen = ({ navigation }) => {
         style={styles.map}
       >
         <Polyline coordinates={track.locations.map((loc) => loc.coords)} />
-      </MapView>
+      </MapView> */}
     </>
   );
 };
