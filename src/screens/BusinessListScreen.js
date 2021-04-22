@@ -35,7 +35,6 @@ const BusinessListScreen = ({ navigation }) => {
         title="fetch Businesses"
         onPress={() => {
           fetchBusinesses(authState.userId);
-          console.log("이ㅏㄴ렁나ㅣㄹ" + businessState);
         }}
       />
       <FlatList
