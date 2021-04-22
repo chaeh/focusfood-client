@@ -31,10 +31,11 @@ const createBusiness = (dispatch) => async (userId, businessName) => {
 
 const fetchBusinesses = (dispatch) => async (userId) => {
   try {
-    const response = await trackerApi.get("/business", {
+    const response = await trackerApi.patch("/business", {
       userId,
     });
     await dispatch({ type: "fetch_businesses", payload: response.data });
+    console.log(response.data);
   } catch (err) {
     console.log(`${err}
          + at /BusinessContext`);

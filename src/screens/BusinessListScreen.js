@@ -15,10 +15,10 @@ import { Context as AuthContext } from "../context/AuthContext";
 import { ListItem } from "react-native-elements";
 
 const BusinessListScreen = ({ navigation }) => {
-  // const { fetchBusinesses } = useContext(BusinessContext);
-  const { state } = useContext(AuthContext);
+  const { state: businessState, fetchBusinesses } = useContext(BusinessContext);
+  const { state: authState } = useContext(AuthContext);
   return (
-    <View style={styles.ContainerStyle}>
+    <>
       <NavigationEvents
         onWillFocus={() => {
           // fetchBusinesses();
@@ -28,11 +28,18 @@ const BusinessListScreen = ({ navigation }) => {
       <Button
         title="Log"
         onPress={() => {
-          console.log(state);
+          console.log(authState);
+        }}
+      />
+      <Button
+        title="fetch Businesses"
+        onPress={() => {
+          fetchBusinesses(authState.userId);
+          console.log("이ㅏㄴ렁나ㅣㄹ" + businessState);
         }}
       />
       <FlatList
-        data={state}
+        data={businessState}
         KeyExtractor={(item) => item._id}
         renderItem={({ item }) => {
           return (
@@ -47,7 +54,7 @@ const BusinessListScreen = ({ navigation }) => {
           );
         }}
       />
-    </View>
+    </>
   );
 };
 
