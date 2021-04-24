@@ -8,9 +8,41 @@ const businessReducer = (state, action) => {
     case "create_business":
       return state;
     case "fetch_businesses":
-      return action.payload;
+      return action.payload; //list of businesses
+    case "create_menu":
+      const changedState = state.map((t) => {
+        if (t._id === action.payload._id) {
+          return action.payload;
+        }
+        return t;
+      });
+      console.log("changed is " + changedState);
+      return changedState;
     default:
       return state;
+  }
+};
+
+const createMenu = (dispatch) => async (
+  businessId,
+  name,
+  price,
+  priority,
+  images = []
+) => {
+  try {
+    const response = await trackerApi.post(`/${businessId}/addmenu`, {
+      name,
+      price,
+      priority,
+      images,
+    });
+    dispatch({
+      type: "create_menu",
+      payload: response.data,
+    });
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -35,7 +67,6 @@ const fetchBusinesses = (dispatch) => async (userId) => {
       userId,
     });
     await dispatch({ type: "fetch_businesses", payload: response.data });
-    console.log(response.data);
   } catch (err) {
     console.log(`${err}
          + at /BusinessContext`);
@@ -53,6 +84,6 @@ const fetchTracks = (dispatch) => async () => {
 
 export const { Provider, Context } = createDataContext(
   businessReducer,
-  { createBusiness, fetchBusinesses },
+  { createBusiness, fetchBusinesses, createMenu },
   []
 );

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -12,37 +12,31 @@ import { NavigationEvents } from "react-navigation";
 import { Feather } from "@expo/vector-icons";
 import { Context as BusinessContext } from "../context/BusinessContext";
 import { Context as AuthContext } from "../context/AuthContext";
-import { ListItem } from "react-native-elements";
+import { ListItem, LinearProgress } from "react-native-elements";
 
 const BusinessListScreen = ({ navigation }) => {
   const { state: businessState, fetchBusinesses } = useContext(BusinessContext);
   const { state: authState } = useContext(AuthContext);
+  useEffect(() => {
+    fetchBusinesses(authState.userId);
+  }, []);
   return (
     <>
-      <NavigationEvents
+      {/* <NavigationEvents
         onWillFocus={() => {
-          // fetchBusinesses();
-        }}
-      />
-      <Text style={styles.TextStyle}>레스토랑 리스트</Text>
-      <Button
-        title="Log"
-        onPress={() => {
-          console.log(authState);
-        }}
-      />
-      <Button
-        title="fetch Businesses"
-        onPress={() => {
           fetchBusinesses(authState.userId);
         }}
-      />
+      /> */}
       <FlatList
         data={businessState}
-        KeyExtractor={(item) => item._id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("BusinessDetail", { _id: item._id });
+              }}
+            >
               <ListItem>
                 <ListItem.Content>
                   <ListItem.Title>{item.name}</ListItem.Title>
@@ -59,6 +53,7 @@ const BusinessListScreen = ({ navigation }) => {
 
 BusinessListScreen.navigationOptions = ({ navigation }) => {
   return {
+    title: "내 레스토랑",
     headerRight: () => (
       <TouchableOpacity
         onPress={() => {
@@ -69,11 +64,7 @@ BusinessListScreen.navigationOptions = ({ navigation }) => {
       </TouchableOpacity>
     ),
     headerLeft: () => (
-      <TouchableOpacity
-        onPress={() => {
-          console.log(authstate);
-        }}
-      >
+      <TouchableOpacity onPress={() => {}}>
         <Text>Get</Text>
       </TouchableOpacity>
     ),

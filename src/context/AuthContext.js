@@ -75,10 +75,10 @@ const signout = (dispatch) => async () => {
 const tryLocalSignin = (dispatch) => async () => {
   const token = await AsyncStorage.getItem("token");
   if (token) {
-    //const response = await tracker.get("/userId", { token });  이거 고쳐야되는데..ㅠㅠ
+    const response = await tracker.patch("/userId", { token }); // 이거 고쳐야되는데..ㅠㅠ
     dispatch({
       type: "signin",
-      payload: { token },
+      payload: { token, userId: response.data.userId },
     });
 
     navigate("BusinessList");
