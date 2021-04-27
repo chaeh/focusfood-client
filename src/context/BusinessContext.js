@@ -42,7 +42,7 @@ const createMenu = (dispatch) => async (
       payload: response.data,
     });
   } catch (err) {
-    console.log(err);
+    console.log(err + "while createMenu");
   }
 };
 
