@@ -46,6 +46,27 @@ const createMenu = (dispatch) => async (
   }
 };
 
+const createService = (dispatch) => async (
+  businessId,
+  name,
+  priority,
+  images = []
+) => {
+  try {
+    const response = await trackerApi.post(`/${businessId}/addservice`, {
+      name,
+      priority,
+      images,
+    });
+    dispatch({
+      type: "create_menu", //menu 와 하는 일이 똑같음
+      payload: response.data,
+    });
+  } catch (err) {
+    console.log(err + " while createService");
+  }
+};
+
 const createBusiness = (dispatch) => async (userId, businessName) => {
   try {
     const response = await trackerApi.post("/addbusiness", {
@@ -84,6 +105,6 @@ const fetchTracks = (dispatch) => async () => {
 
 export const { Provider, Context } = createDataContext(
   businessReducer,
-  { createBusiness, fetchBusinesses, createMenu },
+  { createBusiness, fetchBusinesses, createMenu, createService },
   []
 );

@@ -11,6 +11,7 @@ import { Context as BusinessContext } from "../context/BusinessContext";
 import HorizontalImageList from "../components/HorizontalImageList";
 import { Ionicons } from "@expo/vector-icons";
 import Spacer from "../components/Spacer";
+
 const BusinessDetailScreen = ({ navigation }) => {
   const _id = navigation.getParam("_id");
   const { state } = useContext(BusinessContext);
@@ -40,7 +41,11 @@ const BusinessDetailScreen = ({ navigation }) => {
           <Text style={styles.addMenu}> 메뉴추가 </Text>
         </TouchableOpacity>
       </View>
-      <HorizontalImageList list={business.menulist} />
+      <HorizontalImageList
+        list={business.menulist}
+        path={"MenuDetail"}
+        navigation={navigation}
+      />
       <TouchableOpacity>
         <Text style={styles.moreMenu}>메뉴 전체보기</Text>
       </TouchableOpacity>
@@ -51,7 +56,7 @@ const BusinessDetailScreen = ({ navigation }) => {
         <Text style={styles.listTitle}>자주 찾는 서비스</Text>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("ServiceCreate");
+            navigation.navigate("ServiceCreate", { businessId: business._id });
           }}
         >
           <Text style={styles.addMenu}> 서비스 추가 </Text>

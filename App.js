@@ -13,6 +13,7 @@ import BusinessDetailScreen from "./src/screens/BusinessDetailScreen";
 import MenuCreateScreen from "./src/screens/MenuCreateScreen";
 import ServiceCreateScreen from "./src/screens/ServiceCreateScreen";
 import NoticeCreateScreen from "./src/screens/NoticeCreateScreen";
+import MenuDetailScreen from "./src/screens/MenuDetailScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { setNavigator } from "./src/navigationRef";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
@@ -27,12 +28,15 @@ const businessListFlow = createStackNavigator({
   MenuCreate: MenuCreateScreen,
   ServiceCreate: ServiceCreateScreen,
   NoticeCreate: NoticeCreateScreen,
+  MenuDetail: MenuDetailScreen,
 });
 
 businessListFlow.navigationOptions = {
   title: "Tracks",
   tabBarIcon: <FontAwesome name="th-list" size={24} color="black" />,
 };
+
+//const businessDetailFlow = createStackNavigator({});
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -41,6 +45,7 @@ const switchNavigator = createSwitchNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen,
   }),
+
   mainFlow: createBottomTabNavigator({
     TrackCreate: TrackCreateScreen,
     BusinessList: businessListFlow,

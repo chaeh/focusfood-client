@@ -2,7 +2,7 @@ import React from "react";
 import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text, Button, Image } from "react-native-elements";
 
-const HorizontalImageList = (props) => {
+const HorizontalImageList = (props, { navigation }) => {
   return (
     <>
       <FlatList
@@ -13,7 +13,11 @@ const HorizontalImageList = (props) => {
         renderItem={({ item }) => {
           return (
             <View style={styles.container}>
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity
+                onPress={() => {
+                  props.navigation.navigate(props.path, { item });
+                }}
+              >
                 {item.images.length === 0 || item.images[0] === "" ? (
                   <Image
                     source={{
